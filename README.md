@@ -25,11 +25,11 @@
 
   <span>
     The application is fully responsive to run in any mobile device or computers. It's hosted on        HEROKU. 
-    To test and check out the app you can visit by clicking at the button below. 
+    To test and check out the app you can visit the link below. 
   </span>
 </div>
 
-
+<br /><br />
 <div align="center">
     <a href="https://webapp-python-flask-12860fd62137.herokuapp.com/" class="button">
       Python & Flask Webapp
