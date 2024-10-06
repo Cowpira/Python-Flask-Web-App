@@ -6,8 +6,8 @@
 </div>
 
 <div>
-  <span style="color: blue;">
-    This application is a simple TO-DO List, but a complete CRUD (Create, Remove, Update, and Delete) functionalities, it also includes form validations, pagination and feedback using bootstrap alerts.
+  <span>
+    This application is a simple TO-DO List, but a complete CRUD (Create, Remove, Update, and Delete)       functionalities, it also includes form validations, pagination and feedback using bootstrap alerts.
   </span>
 
   ### :hammer_and_wrench: Languages and Tools :
@@ -21,6 +21,11 @@
     <li>JQuery Datepicker</li>
     <li>SQL Alchemy</li>
   </ul>
-
   <hr />
+
+  <span>
+    The application is fully responsive to run in any mobile device or computers. It's hosted on        HEROKU. 
+    To test and check out the app you can visit by clicking at the button below. 
+  </span>
 </div>
+
