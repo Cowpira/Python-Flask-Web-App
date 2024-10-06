@@ -7,21 +7,12 @@
 {% block body %}
     <div class="container">
         <div class="col-12">
-
-             <!-- PAGE HEADER AND TITLE -->
-            <div class="py-3 text-center animate__animated animate__fadeInDown animate__delay-1.8s">
-                <p class="app-titles"> 
-                    <img src="static/images/todo.png" height="45px" alt="">
-                    Todo List
-                </p>
-            </div> 
-
             <!-- ALERT MESSAGES FEEDBACK -->
             {%- with messages = get_flashed_messages(with_categories=true) -%}
                 {%- if messages -%}
                     {%- for category, message in messages -%}
                         {%- if category -%}
-                            <div class="col-sm-10 offset-sm-1 alert alert-{{ category }} text-center animate__animated animate__fadeIn animate__delay-1.7s">
+                            <div id="success-alert" class="col-sm-10 offset-sm-1 alert alert-{{ category }} text-center animate__animated animate__fadeIn animate__delay-1.7s">
                                 <div class="d-flex justify-content-around">
                                     <div class="p-2 col-12 text-{{ category }}">
                                         <img src="static/images/{{ category }}.png" height="30px" alt="">
@@ -43,8 +34,7 @@
 
             <!-- Button trigger modal -->
             <div class="row justify-content-center">
-                <button type="button" class="col-4 col-md-3 btn btn-dark animate__animated animate__fadeInUp animate__delay-1s" 
-                data-bs-toggle="modal" data-bs-target="#newTask">
+                <button type="button" class="col-4 col-md-3 btn btn-dark" data-bs-toggle="modal" data-bs-target="#newTask">
                     <span class="material-icons fs-4">format_list_bulleted_add</span> Add Task
                 </button>
             </div>
@@ -335,8 +325,7 @@
 
                                             <hr class="col-6 offset-3 text-dark" />
                                             <span class="fs-6 text-danger text-center">
-                                                Do you want to delete the task. <br/> 
-                                                This action cannot be undone.
+                                                Deleting a task action cannot be reversed.
                                             </span>
                                         </div>
                                     </div>
@@ -405,7 +394,6 @@
                     {% endif %}
                 </ul>
 
-                <hr class="col-10 offset-1" />
                 <small class="fw-lighter d-flex justify-content-center">
                     (Page {{ pagination.page }} of {{ pagination.pages }})
                 </small>

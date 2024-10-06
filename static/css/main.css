@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    background-color: lightgrey;
+    background-color: rgb(236, 236, 236, .45);
 }
 
 *, ::after, ::before {
@@ -162,22 +162,30 @@ body{
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
     border-bottom: 1px solid rgb(154, 154, 154, .65);
-    background-color: rgb(226, 227, 229);
+    background-color: rgb(236, 237, 237);
+    box-shadow: .01em .01em  0 0 rgba(193, 192, 192, 0.9);
+    transition: box-shadow 1.3s ease;
+}
+
+.grid:hover{
+    box-shadow: .10em .5em .7em .3em rgba(193, 192, 192, 0.9);
+    transition: all .7s ease-in-out;
 }
 
 .grid-header{ 
-    padding: 10px 5px;
+    padding: 15px 5px;
     background-color: #fff !important;
 }
 
 .row-wrapper > span{
     height: 52px;
     padding: 18px 2px;
-    border-bottom: 1px solid rgb(154, 154, 154, .65);
+    border-bottom: 1px solid rgb(154, 154, 154, .55);
 }
 
 .row-wrapper{ display: contents; }
 .row-wrapper:hover > span{ 
     padding: 18px 2px;
-    background-color: #d1d2d4; 
+    background-color: #e2e2e2; 
+    
 }

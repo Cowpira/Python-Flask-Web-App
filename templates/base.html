@@ -16,9 +16,12 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='/favicon.ico') }}">
 
     {% block head %}{% endblock %}
-
     <script>
         $(document).ready(function(event){
+            $("#success-alert").fadeTo(6000, 850).slideUp(850, function() {
+                $("#success-alert").slideUp(850);
+            });
+
             $(function() {
                 $("body").delegate("#datepicker, .datepicker_up", "focusin", 
                 function(){
@@ -29,6 +32,14 @@
     </script>
 </head>
 <body>
+    <!-- PAGE HEADER AND TITLE -->
+    <div class="py-3 text-center animate__animated animate__fadeInDown animate__delay-1.8s">
+        <p class="app-titles"> 
+            <img src="static/images/todo.png" height="45px" alt="">
+            Todo List
+        </p>
+    </div> 
+
     {% block body %}{% endblock %}
     <script>
         (() => {
