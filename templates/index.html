@@ -1,0 +1,421 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Python & Flask</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="col-12">
+
+             <!-- PAGE HEADER AND TITLE -->
+            <div class="py-3 text-center animate__animated animate__fadeInDown animate__delay-1.8s">
+                <p class="app-titles"> 
+                    <img src="static/images/todo.png" height="45px" alt="">
+                    Todo List
+                </p>
+            </div> 
+
+            <!-- ALERT MESSAGES FEEDBACK -->
+            {%- with messages = get_flashed_messages(with_categories=true) -%}
+                {%- if messages -%}
+                    {%- for category, message in messages -%}
+                        {%- if category -%}
+                            <div class="col-sm-10 offset-sm-1 alert alert-{{ category }} text-center animate__animated animate__fadeIn animate__delay-1.7s">
+                                <div class="d-flex justify-content-around">
+                                    <div class="p-2 col-12 text-{{ category }}">
+                                        <img src="static/images/{{ category }}.png" height="30px" alt="">
+                                        <p class="col-te">{{ message }}</p>
+                                    </div>
+
+                                    <div class="col-1" style="margin: -25px 20px 0 0;">
+                                        <a type="button" class=" close fs-1 text-dark text-decoration-none" data-bs-dismiss="alert">
+                                            &times;
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {%- endif -%}
+                    {%- endfor -%}
+                {%- endif -%}
+            {%- endwith -%}
+
+
+            <!-- Button trigger modal -->
+            <div class="row justify-content-center">
+                <button type="button" class="col-4 col-md-3 btn btn-dark animate__animated animate__fadeInUp animate__delay-1s" 
+                data-bs-toggle="modal" data-bs-target="#newTask">
+                    <span class="material-icons fs-4">format_list_bulleted_add</span> Add Task
+                </button>
+            </div>
+
+
+            <!-- Modal to add new task -->
+            <div class="modal fade" id="newTask" tabindex="-1" aria-labelledby="newTask" data-bs-backdrop="static" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <p class="col-12 modal-title app-titles text-center animate__animated animate__fadeInDown 
+                            animate__delay-1.3s" id="newTask">
+                                New Task
+                            </p>
+                        </div>
+
+                        <form action="/" method="POST" class="needs-validation col-9 offset-1" novalidate>
+                            <div class="modal-body">
+                                <div class="mb-1 mt-3">
+                                    <label for="responsible" class="form-label">Responsible*</label>
+                                    <input type="text" name="responsible" id="responsible" max="25" min="3" maxlength="25" placeholder="Assigned to" tabindex="1" class="form-control rounded-3" required>
+
+                                    <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                        Please informe tasks' responsible
+                                    </div>
+                                </div>
+                    
+                                <div class="mt-3">
+                                    <label for="content" class="form-label">Description*</label>
+                                    <input type="text" name="content" id="content" max="40" min="5" maxlength="40" placeholder="Task name" tabindex="2" class="form-control rounded-3" required>
+
+                                    <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                        Please informe task name
+                                    </div>
+                                </div>
+
+                                <div class="mt-3 col-6 offset-3">
+                                    <label for="due_date" class="form-label">Due Date*</label>
+                                
+                                    <div class="input-group">
+                                        <span class="input-group-text btn-calendar disabled">
+                                            <span class="material-icons fs-5">calendar_month</span>
+                                        </span>
+                                        <input type="text" name="due_date" id="datepicker" placeholder="03/23/2024" tabindex="3" 
+                                        class="form-control rounded-3 datepicker" required>
+
+                                        <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                            Select a due-date
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-3">
+                                    <span class="text-center form_warn">Fields with * are required</span>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer justify-content-center">
+                                <input id="btSaveTask" type="submit" class="btn btn-success" tabindex="4" value="Save Task">
+                                <button type="button" class="btn btn-secondary" tabindex="5" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            {% if pagination.items|length < 1 %}
+                <div class="mt-5 alert alert-light animate__animated animate__fadeInUp animate__delay-1.8s" role="alert">
+                    <div class="col-12 d-flex justify-content-center">
+                        <img class="mt-2 animate__animated animate__swing animate__delay-2s animate__infinite" src="static/images/list.png" height="85px" alt="">
+                    </div>
+
+                    <label class="fs-3 col-12 text-center text-dark fw-light">
+                        <br />There are no tasks. <br />
+                        Click 'New Task' to add.
+                    </label>
+                </div>
+            {% else %}
+                <div class="grid">
+                    <span class="text-center text-black grid-header">
+                        <strong>Responsible</strong> 
+                    </span>
+                    <span class="text-center text-black grid-header">
+                        <strong>Task</strong> 
+                    </span>
+                    <span class="text-center text-black grid-header">
+                        <strong>Due Date</strong> 
+                    </span>
+                    <span class="text-center text-black grid-header">
+                        <strong>Action</strong>
+                    </span>
+
+                    {% for task in pagination.items %}
+                        <div class="row-wrapper">
+                            <span class="text-center fw-lighter">
+                                <div class="mt-3">{{ task.responsible }}</div>
+                            </span>
+                            <span class="text-center fw-lighter">
+                                <div class="mt-3">{{ task.content }}</div>
+                            </span>
+                            
+                            <span class="text-center fw-lighter">
+                                {% if (task.task_status) %}
+                                    <div>
+                                        <span class="material-icons text-success fs-5 animate__animated animate__flash 
+                                        animate__delay-1s animate__repeat-2 animate__slow">
+                                            alarm_on
+                                        </span> <br />
+                                        {{ task.due_date }}
+                                    </div>
+                                {% else %}
+                                    <div>
+                                        <span class="material-icons text-danger fs-5 animate__animated animate__wobble 
+                                        animate__delay-2s animate__repeat-3 animate__slow">
+                                            timer_off
+                                        </span> <br />
+                                        {{ task.due_date }}
+                                    </div>
+                                {% endif %}
+                            </span>
+                            
+                            <span class="text-center">
+                                <div class="mt-3">
+                                    <!-- Button trigger view modal -->
+                                    <a type="button" class="btn-view" data-toggle="tooltip" data-bs-placement="left" title="View" 
+                                    data-bs-toggle="modal" data-bs-target="#view{{task.id}}" data-bs-id="{{task.id}}">
+                                        <span class="material-icons">visibility</span>
+                                    </a>
+
+                                    <a type="button" class="btn-edit" data-toggle="tooltip" data-bs-placement="top" title="Edit"
+                                    data-bs-toggle="modal" data-bs-target="#update{{task.id}}" data-bs-id="{{task.id}}">
+                                        <span class="material-icons">edit_note</span>
+                                    </a>
+
+                                    <a type="button" class="btn-delete" data-toggle="tooltip" data-bs-placement="right" title="Delete" 
+                                    data-bs-toggle="modal" data-bs-target="#delete{{task.id}}" data-bs-id="{{task.id}}">
+                                        <span class="material-icons">delete_forever</span>
+                                    </a>
+                                </div>
+                            </span>
+                        </div>
+
+                        <!-- Modal to view the task -->
+                        <div class="modal modal-sm fade" id="view{{task.id}}" tabindex="-1" aria-labelledby="view" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="text-center modal-header">
+                                        <p class="col-12 text-center app-titles modal-title animate__animated animate__fadeInDown animate__delay-1.3s" id="view">
+                                            Details
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="mb-2 text-center text-primary fw-lighter text-decoration-underline">
+                                            <span class="badge rounded-pill text-bg-primary py-3">ID: {{ task.id }}</span>
+                                            <legend class="fs-2">{{ task.content }}</legend>
+                                        </div>
+                                        <hr class="col-6 offset-3 text-dark" />
+
+                                        <div class="container justify-content-center">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label class="form-label text-black-50 bg-white">Responsible:</label>
+                                                    <p class="fw-light text-primary">{{ task.responsible }}</p>
+                                                </div>
+
+                                                <div class="col">
+                                                    <label class="form-label text-black-50 bg-white">Due:</label>
+                                                    <p class="fw-light text-primary">{{ task.due_date }}</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label class="form-label text-black-50 bg-white">Status:</label>
+                                                    {% if task.task_status  %}
+                                                        <p class="badge rounded-pill text-bg-success fw-light px-2">Opened Task</p>
+                                                    {% else %}
+                                                        <p class="badge rounded-pill text-bg-danger fw-light px-2">Closed Task</p>
+                                                    {% endif  %}
+                                                </div>
+
+                                                <div class="col">
+                                                    <label class="form-label text-black-50 bg-white">Registered:</label>
+                                                    <p class="badge rounded-pill text-bg-dark fw-lighter">
+                                                        {{ task.created_date.date().strftime("%b %d, %Y") }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal to update task -->
+                        <div class="modal fade" id="update{{task.id}}" tabindex="-1" aria-labelledby="update" data-bs-backdrop="static" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header ">
+                                        <div class="row">
+                                            <p class="modal-title app-titles text-center animate__animated animate__fadeInDown animate__delay-1.3s" id="update">
+                                                Update Task
+                                            </p><br />
+
+                                            <span class="col-6 offset-3 text-center rounded-pill text-bg-dark fw-lighter animate__animated animate__fadeIn animate__delay-1s animate__slower">
+                                                Registered: {{ task.created_date.date().strftime("%b %d, %Y") }}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <form action="/update_task/{{task.id}}" method="POST" class="needs-validation" novalidate>
+                                        <div class="modal-body col-8 offset-1">
+                                            <div class="mt-3">
+                                                <label for="responsible" class="form-label">Responsible*</label>
+                                                <input type="text" name="up_responsible" max="18" maxlength="18" min="3" id="up_responsible" 
+                                                value="{{task.responsible}}" tabindex="1" class="form-control rounded-3" required>
+
+                                                <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                                    Please informe tasks' responsible
+                                                </div>
+                                            </div>
+                                
+                                            <div class="mt-3">
+                                                <label for="content" class="form-label">Description*</label>
+                                                <input type="text" name="up_content" id="up_content" max="40" maxlength="40" min="5" value="{{task.content}}" 
+                                                tabindex="2" class="form-control rounded-3" required>
+
+                                                <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                                    Please informe task name
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3 col-7 offset-2">
+                                                <label for="due_date" class="form-label mx-3">Due Date:</label>
+                                            
+                                                <div class="input-group mx-3">
+                                                    <span class="input-group-text btn-calendar disabled">
+                                                        <span class="material-icons fs-5">calendar_month</span>
+                                                    </span>
+                                                    <input type="text" name="up_due_date" id="datepicker_up_{{task.id}}" placeholder="12/14/2024" max="15" min="15" 
+                                                    value="{{task.due_date}}" tabindex="3" class="col-12 form-control rounded-3 datepicker datepicker_up" required>
+
+                                                    <div class="invalid-feedback animate__animated animate__flash animate__repeat-1 animate__slow">
+                                                        Select a due-date
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center mt-3">
+                                                <span class="text-center form_warn">Fields with * are required</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer justify-content-center">
+                                            <input type="submit" class="btn btn-success" tabindex="4" value="Update">
+                                            <button type="button" class="btn btn-secondary" tabindex="5" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal to delete task -->
+                        <div class="modal modal-sm fade" id="delete{{task.id}}" tabindex="-1" aria-labelledby="delete" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="text-center modal-header">
+                                        <p class="col-12 text-center app-titles modal-title animate__animated animate__fadeInDown animate__delay-1.3s" id="delete">
+                                            Delete
+                                        </p>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div class="mb-3 text-center text-primary fw-lighter text-decoration-underline">
+                                            <span class="badge rounded-pill text-bg-primary py-3">ID: {{ task.id }}</span>
+                                            <legend class="fs-2">{{ task.content }}</legend>
+                                        </div>
+
+                                        <div class="mt-3 text-center">
+                                            <p class="badge rounded-pill text-bg-dark fw-lighter">
+                                                Registered: {{ task.created_date.date().strftime("%b %d, %Y") }}
+                                            </p>
+
+                                            <hr class="col-6 offset-3 text-dark" />
+                                            <span class="fs-6 text-danger text-center">
+                                                Do you want to delete the task. <br/> 
+                                                This action cannot be undone.
+                                            </span>
+                                        </div>
+                                    </div>
+            
+                                    <div class="modal-footer justify-content-center">
+                                        <a type="submit" href="/delete/{{task.id}}" class="btn btn-danger">Delete</a>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- DATA PAGINATION -->
+                <div class="d-flex align-items-end flex-column">
+                    <div class="p-2 fw-lighter">
+                        <p class="material-icons text-success fs-6">alarm_on</p>
+                        Opened
+
+                        <span class="mx-2"></span>
+                        <p class="material-icons text-danger fs-6">timer_off</p>
+                        Closed
+                    </div>
+                </div>
+
+                <ul class="pagination justify-content-center fw-lighter fs-6 mt-2">
+                    {% if pagination.has_prev %}
+                        <li class="page-item fs-3">
+                            <a class='page-link text-black' href="{{ url_for('index', page=pagination.prev_num) }}">
+                                <b>&larr;</b>
+                            </a>
+                        </li>
+                    {% else %}
+                    <li class="page-item fs-3">
+                        <a class='page-link text-black disabled disabled-page' href="">
+                            <b>&larr;</b>
+                        </a>
+                    </li>
+                    {% endif %}
+                
+                    {% for number in pagination.iter_pages() %}
+                        {% if pagination.page != number %}
+                            <li class="page-item">
+                                <a class='page-link text-black' href="{{ url_for('index', page=number) }}">
+                                    {{ number }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <span class='page-active'>{{ number }}</span>
+                        {% endif %}
+                    {% endfor %}
+                
+                    {% if pagination.has_next %}
+                        <li class="page-item">
+                            <a class='page-link text-black' href="{{ url_for('index', page=pagination.next_num) }}">
+                                <b>&rarr;</b>
+                            </a>
+                        </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class='page-link text-black disabled disabled-page' href="">
+                            <b>&rarr;</b>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+
+                <hr class="col-10 offset-1" />
+                <small class="fw-lighter d-flex justify-content-center">
+                    (Page {{ pagination.page }} of {{ pagination.pages }})
+                </small>
+            {% endif %}
+
+            <script>
+                $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+                });
+            </script>
+        </div>
+    </div>
+{% endblock %}

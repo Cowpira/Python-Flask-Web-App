@@ -1,0 +1,183 @@
+body{
+    margin: 0;
+    background-color: lightgrey;
+}
+
+*, ::after, ::before {
+    box-sizing: inherit; 
+}
+
+.head{
+    width: 100%;
+    font-family: Verdana;
+    font-size: 15px;
+    font-weight: 200;
+    color: rgb(143, 143, 143);
+}
+
+.app-titles{
+    font-family: Verdana;
+    font-size: 36px;
+    font-weight: 500;
+    letter-spacing: 0.4;
+    color: rgb(236, 119, 24);
+}
+
+.text-black{ 
+    font-size: 14px !important;
+    color: black !important;
+    letter-spacing: 3px !important;
+}
+
+.btn-view{
+    text-decoration: none;
+    padding: 6px 3px;
+    color: rgb(86, 193, 105);
+    border: 1px solid transparent;
+}
+
+.btn-edit{
+    text-decoration: none;
+    padding: 15px 5px;
+    color: rgb(88, 183, 250);
+    border: 1px solid transparent;
+}
+
+.btn-delete{
+    text-decoration: none;
+    padding: 35px 3px;
+    color: rgb(250, 106, 106);
+    border: 1px solid transparent;
+}
+
+.btn-view:hover,  .btn-edit:hover, .btn-delete:hover{
+    font-weight: bolder;
+    transition: ease-in 0.6s;
+    color: rgb(108, 108, 108);
+}
+
+.form_warn{
+    font-size: 12px;
+    color: rgb(150, 150, 150);
+    letter-spacing: 0.4px;
+    font-family: sans-serif;
+}
+
+.text-warning{ color: #b38b24 !important; }
+
+.btn-calendar{
+    color: #f99e00;
+    background-color: #414141;
+}
+
+/* ADDING THE DATEPICKER INTO A MODEL */
+.datepicker{ z-index:99999 !important; }
+.ui-widget-header { 
+    color: rgb(236, 119, 24) !important; 
+    background-color: #414141;
+}
+
+/* STYLE FOR INPUT FOCUS */
+.form-control:focus {
+    border-color: #f4ac4d;
+    box-shadow: 0 0 0 .25rem rgb(242, 177, 124, 0.5);
+}
+
+/* STYLE DATEPICKER BUTTON NEXT/PREV */
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+    background-color: rgb(236, 119, 24);
+}
+.ui-datepicker .ui-datepicker-prev:hover {
+    transition: ease-in 0.5s;
+    background-color: rgb(138, 137, 136);
+}
+.ui-datepicker .ui-datepicker-next:hover {
+    transition: ease-in 0.5s;
+    background-color: rgb(138, 137, 136);
+}
+
+/* STYLE DATEPICKER DAYS */
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header 
+.ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html 
+.ui-button.ui-state-disabled:active {
+    color: #6b6969;
+    text-align: center;
+}
+ .ui-button.ui-state-disabled:hover {
+    color: rgb(236, 119, 24);
+    background-color: #414141;
+    text-align: center;
+}
+
+/* STYLE FOR THE CURRENT DATE */
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, 
+.ui-widget-header .ui-state-highlight {
+    border: 1px solid #565655 !important;
+    background: #e49611 !important;
+    color: #ffffff !important;
+    text-align: center;
+}   
+
+/* STYLE FOR THE DATE HOVER */
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header 
+.ui-state-hover, a.ui-button:hover, .ui-button:hover {
+    border: 1px solid #545555;
+    background: #585757;
+    color: #ffffff;
+    text-align: center;
+}
+
+/* STYLE FOR THE SELECTED DATE */
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header 
+.ui-state-active, a.ui-button:active, .ui-button:active {
+    border: 1px solid #545555;
+    background: #414141;
+    color: rgb(236, 119, 24);
+    text-align: center;
+    font-weight: bold;
+}  
+
+/* STYLE PAGINATION BUTTONS */
+.page-link:hover {
+    background-color: #cfcfce;
+    font-weight: 400;
+    border-color: #aaabab;
+}
+
+.page-active {
+    padding: 6px 14px;
+    background-color: #414141;
+    color: rgb(250, 122, 18);
+    font-weight: 400;
+    border-color: #565757;
+}
+
+.disabled-page{
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+}
+
+/* STYLE TO DESIGN DATA TABLE IN GRID STYLE */
+.grid {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    border-bottom: 1px solid rgb(154, 154, 154, .65);
+    background-color: rgb(226, 227, 229);
+}
+
+.grid-header{ 
+    padding: 10px 5px;
+    background-color: #fff !important;
+}
+
+.row-wrapper > span{
+    height: 52px;
+    padding: 18px 2px;
+    border-bottom: 1px solid rgb(154, 154, 154, .65);
+}
+
+.row-wrapper{ display: contents; }
+.row-wrapper:hover > span{ 
+    padding: 18px 2px;
+    background-color: #d1d2d4; 
+}
