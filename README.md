@@ -10,7 +10,7 @@
     This application is a simple TO-DO List, but a complete CRUD (Create, Remove, Update, and Delete) functionalities, it also includes form validations, pagination and feedback using bootstrap alerts.
   </span>
 
-  <b>It also used:</b>
+  ### :hammer_and_wrench: Languages and Tools :
   <ul>
     <li>Python 12</li>
     <li>Flask</li>
