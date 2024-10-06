@@ -30,7 +30,7 @@
 </div>
 
 <div align="center">
-    <a href="(https://webapp-python-flask-12860fd62137.herokuapp.com/)">
+    <a href="(https://webapp-python-flask-12860fd62137.herokuapp.com/)" class="button">
       Python & Flask Webapp
     </a>
 </div>
