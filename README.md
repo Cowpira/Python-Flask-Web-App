@@ -7,7 +7,7 @@
 
 <div>
   <span>
-    This application is a simple TO-DO List, but a complete CRUD (Create, Remove, Update, and Delete)       functionalities, it also includes form validations, pagination and feedback using bootstrap alerts.
+    This application is a simple TO-DO List, but a complete CRUD (Create, Read, Update, and Delete)       functionalities, it also includes form validations, pagination and feedback using bootstrap alerts.
   </span>
 
   ### :hammer_and_wrench: Languages and Tools :
